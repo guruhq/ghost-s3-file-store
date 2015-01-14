@@ -8,8 +8,7 @@
     "url": "git://github.com/christopherhein/ghost-s3-file-store.git"
   },
   "dependencies": {
-    "aws-sdk": "^2.1.4",
-    "proxy-agent": "1.1.0"
+    "aws-sdk": "^2.1.4"
   },
   "keywords": [
     "ghost",
