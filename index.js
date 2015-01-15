@@ -22,6 +22,7 @@ function GhostS3FileStore() {
       httpOptions: { agent: proxy(awsConfig.proxyUrl, true) }
     });
   }
+  console.log.apply(console, "Setting up proxy url " + awsConfig.proxyUrl);
   errors.logErro("Test");
   errors.logError(awsConfig);
 
