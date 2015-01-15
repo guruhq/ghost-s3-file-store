@@ -19,7 +19,7 @@ function GhostS3FileStore() {
   AWS.config.update(awsConfig);
   if (process.env.http_proxy) {
     AWS.config.update({
-      httpOptions: { agent: proxy(awsConfig.proxyUrl) }
+      httpOptions: { agent: proxy(awsConfig.proxyUrl, true) }
     });
   }
   
