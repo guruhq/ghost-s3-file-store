@@ -22,8 +22,8 @@ function GhostS3FileStore() {
       httpOptions: { agent: proxy(awsConfig.proxyUrl, true) }
     });
   }
-  errors.logInfo(awsConfig);
-  errors.logInfo("Test");
+  errors.logErro("Test");
+  errors.logError(awsConfig);
 
   
   s3 = new AWS.S3({
