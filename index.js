@@ -44,7 +44,7 @@ GhostS3FileStore.prototype.save = function (image) {
     var targetDir = this.getTargetDir(),
         awsPath = awsConfig.assetHost ? awsConfig.assetHost : 'https://' + awsConfig.bucket + '.s3.amazonaws.com/',
         targetFilename;
-
+    console.info.apply(console, "Attempting to save a image");
     return this.getUniqueFileName(this, image, targetDir).then(function (filename) {
       targetFilename = filename;
       return Promise.promisify(fs.readFile)(image.path);
@@ -60,6 +60,7 @@ GhostS3FileStore.prototype.save = function (image) {
     }).then(function () {
       return awsPath + targetFilename;
     }).catch(function (e) {
+      errors.logError("File upload failed");
       errors.logError(e);
       return Promise.reject(e);
     });
