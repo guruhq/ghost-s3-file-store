@@ -22,10 +22,7 @@ function GhostS3FileStore() {
       httpOptions: { agent: proxy(awsConfig.proxyUrl, true) }
     });
   }
-  console.log.apply(console, "Setting up proxy url " + awsConfig.proxyUrl);
-  errors.logErro("Test");
-  errors.logError(awsConfig);
-
+  console.log("Setting up proxy url " + awsConfig.proxyUrl);
   
   s3 = new AWS.S3({
     accessKeyId: awsConfig.accessKeyId,
@@ -61,7 +58,7 @@ GhostS3FileStore.prototype.save = function (image) {
     }).then(function () {
       return awsPath + targetFilename;
     }).catch(function (e) {
-      errors.logError("File upload failed");
+      console.log("File upload failed");
       errors.logError(e);
       return Promise.reject(e);
     });
