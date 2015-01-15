@@ -10,19 +10,19 @@ var express   = require('express'),
     utils     = require('../..//core/server/utils'),
     baseStore = require('../../core/server/storage/base'),
     AWS       = require('aws-sdk'),
-    proxy     = require('proxy-agent'),
+    proxy     = require('https-proxy-agent'),
     awsConfig,
     s3;
 
 function GhostS3FileStore() {
   awsConfig = config.aws;
   AWS.config.update(awsConfig);
-  if (process.env.http_proxy) {
-    AWS.config.update({
-      httpOptions: { agent: proxy(awsConfig.proxyUrl, true) }
-    });
+  if (process.env.https_proxy || process.env.HTTPS_PROXY) {
+    var proxyAgent = new proxy(process.env.https_proxy || process.env.HTTPS_PROXY);
+    console.log("Setting up proxy url " + process.env.https_proxy);
+
+    AWS.config.httpOptions = { agent: proxyAgent };
   }
-  console.log("Setting up proxy url " + awsConfig.proxyUrl);
   
   s3 = new AWS.S3({
     accessKeyId: awsConfig.accessKeyId,

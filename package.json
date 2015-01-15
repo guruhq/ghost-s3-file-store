@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "aws-sdk": "^2.1.4",
-    "proxy-agent": "1.1.0"
+    "https-proxy-agent": "^0.3.5"
   },
   "keywords": [
     "ghost",
