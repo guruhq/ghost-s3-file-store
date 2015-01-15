@@ -19,7 +19,6 @@ function GhostS3FileStore() {
   AWS.config.update(awsConfig);
   if (process.env.https_proxy || process.env.HTTPS_PROXY) {
     var proxyAgent = new proxy(process.env.https_proxy || process.env.HTTPS_PROXY);
-    console.log("Setting up proxy url " + process.env.https_proxy);
 
     AWS.config.httpOptions = { agent: proxyAgent };
   }
@@ -42,7 +41,6 @@ GhostS3FileStore.prototype.save = function (image) {
     var targetDir = this.getTargetDir(),
         awsPath = awsConfig.assetHost ? awsConfig.assetHost : 'https://' + awsConfig.bucket + '.s3.amazonaws.com/',
         targetFilename;
-    console.info("Attempting to save a image");
     return this.getUniqueFileName(this, image, targetDir).then(function (filename) {
       targetFilename = filename;
       return Promise.promisify(fs.readFile)(image.path);
@@ -58,7 +56,6 @@ GhostS3FileStore.prototype.save = function (image) {
     }).then(function () {
       return awsPath + targetFilename;
     }).catch(function (e) {
-      console.log("File upload failed");
       errors.logError(e);
       return Promise.reject(e);
     });
